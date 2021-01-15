@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "945446163756",
+    "firebase_url": "https://projectku-dc2a9.firebaseio.com",
+    "project_id": "projectku-dc2a9",
+    "storage_bucket": "projectku-dc2a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945446163756:android:d308b06f90b3c876cbc889",
+        "android_client_info": {
+          "package_name": "com.project.nandur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945446163756-m9gslc5d9na216ov1rlhr3sbrq44juba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnk4x28r58N6GbUitrjkrW3Ftht5CAmJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945446163756-m9gslc5d9na216ov1rlhr3sbrq44juba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
