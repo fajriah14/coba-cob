@@ -5,42 +5,46 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:nandur/koneksi.dart';
+import 'package:SpidyLib/koneksi.dart';
 import 'package:intl/intl.dart';
 
 class editEvent extends StatefulWidget {
-
   final VoidCallback reloadData;
   final String idDocument;
   final String judul_event;
   final String deskripsi_event;
-  final String waktu_laksana;
+  final String waktu_pelaksanaan;
   final String gambar;
   final String created;
 
-  editEvent({this.reloadData,this.idDocument,this.judul_event,this.deskripsi_event,this.waktu_laksana,this.gambar,this.created});
-
+  editEvent(
+      {this.reloadData,
+      this.idDocument,
+      this.judul_event,
+      this.deskripsi_event,
+      this.waktu_pelaksanaan,
+      this.gambar,
+      this.created});
 
   @override
   _editEventState createState() => _editEventState();
 }
 
 class _editEventState extends State<editEvent> {
-
   ProgressDialog pr;
 
   Future<File> file;
   File _image;
   String status = '';
   String _uploadedFileURL;
-  String date_now = DateFormat("d / MMMM / y H:mm").format(DateTime.parse(DateTime.now().toString()));
+  String date_now = DateFormat("d / MMMM / y H:mm")
+      .format(DateTime.parse(DateTime.now().toString()));
 
   String _imageUrl;
 
-
   TextEditingController judul_event = TextEditingController();
   TextEditingController deskripsi_event = TextEditingController();
-  TextEditingController waktu_laksana = TextEditingController();
+  TextEditingController waktu_pelaksanaan = TextEditingController();
   String gambar;
   String created;
   FocusNode myFocusNode;
@@ -51,7 +55,7 @@ class _editEventState extends State<editEvent> {
     myFocusNode = FocusNode();
     judul_event.text = widget.judul_event;
     deskripsi_event.text = widget.deskripsi_event;
-    waktu_laksana.text = widget.waktu_laksana;
+    waktu_pelaksanaan.text = widget.waktu_pelaksanaan;
     gambar = widget.gambar;
     created = widget.created;
   }
@@ -65,9 +69,7 @@ class _editEventState extends State<editEvent> {
           title: Text('Berhasil update Event !'),
           content: SingleChildScrollView(
             child: Column(
-              children: <Widget>[
-
-              ],
+              children: <Widget>[],
             ),
           ),
           actions: <Widget>[
@@ -87,9 +89,11 @@ class _editEventState extends State<editEvent> {
   }
 
   Future getImageFromGallery() async {
-    await ImagePicker.pickImage(source: ImageSource.gallery,imageQuality: 20).then((image) {
+    await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 20)
+        .then((image) {
       setState(() {
-        file = ImagePicker.pickImage(source: ImageSource.gallery,imageQuality: 20);
+        file = ImagePicker.pickImage(
+            source: ImageSource.gallery, imageQuality: 20);
         _image = image;
       });
     });
@@ -100,18 +104,20 @@ class _editEventState extends State<editEvent> {
       status = message;
     });
   }
+
   Future uploadFile() async {
     pr.show();
-    if(_image == null){
+    if (_image == null) {
       Future.delayed(Duration(seconds: 3)).then((value) {
-        Koneksi.koneksi.UpdateEvent(widget.idDocument,judul_event.text,deskripsi_event.text,waktu_laksana.text,'kosong');
+        Koneksi.koneksi.UpdateEvent(widget.idDocument, judul_event.text,
+            deskripsi_event.text, waktu_pelaksanaan.text, 'kosong');
         pr.hide().whenComplete(() {
 //          print('sukses');
           Notif();
 //        Navigator.pop(context);
         });
       });
-    }else{
+    } else {
       StorageReference storageReference = FirebaseStorage.instance
           .ref()
           .child('images/${Path.basename(_image.path)}}');
@@ -125,14 +131,14 @@ class _editEventState extends State<editEvent> {
         });
       });
       Future.delayed(Duration(seconds: 3)).then((value) {
-        Koneksi.koneksi.UpdateEvent(widget.idDocument,judul_event.text,deskripsi_event.text,waktu_laksana.text,_uploadedFileURL);
+        Koneksi.koneksi.UpdateEvent(widget.idDocument, judul_event.text,
+            deskripsi_event.text, waktu_pelaksanaan.text, _uploadedFileURL);
         pr.hide().whenComplete(() {
           Notif();
 //        Navigator.pop(context);
         });
       });
     }
-
   }
 
   Widget showImage() {
@@ -171,7 +177,8 @@ class _editEventState extends State<editEvent> {
 
   @override
   Widget build(BuildContext context) {
-    pr = new ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -209,7 +216,6 @@ class _editEventState extends State<editEvent> {
                   SizedBox(
                     height: 20,
                   ),
-
                   showImage(),
                   SizedBox(
                     height: 20,
@@ -246,7 +252,7 @@ class _editEventState extends State<editEvent> {
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextFormField(
-                      controller: waktu_laksana,
+                      controller: waktu_pelaksanaan,
                       style: TextStyle(
                           fontFamily: "Trueno", fontWeight: FontWeight.w200),
                       decoration: InputDecoration(

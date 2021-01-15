@@ -9,16 +9,16 @@ import 'package:SpidyLib/koneksi.dart';
 // ignore: unused_import
 import 'package:intl/intl.dart';
 
-class addEvent extends StatefulWidget {
+class addLabalaba extends StatefulWidget {
   final VoidCallback reloadData;
 
-  addEvent({this.reloadData});
+  addLabalaba({this.reloadData});
 
   @override
-  _addEventState createState() => _addEventState();
+  _addTanamanState createState() => _addTanamanState();
 }
 
-class _addEventState extends State<addEvent> {
+class _addTanamanState extends State<addLabalaba> {
   ProgressDialog pr;
 
   Future<File> file;
@@ -30,9 +30,12 @@ class _addEventState extends State<addEvent> {
 
   String _imageUrl;
 
-  TextEditingController judul_event = TextEditingController();
-  TextEditingController deskripsi_event = TextEditingController();
-  TextEditingController waktu_laksana = TextEditingController();
+  TextEditingController nama_labalaba = TextEditingController();
+  TextEditingController famili = TextEditingController();
+  TextEditingController spesies = TextEditingController();
+  TextEditingController deskripsi_labalaba = TextEditingController();
+  TextEditingController ordo = TextEditingController();
+
   FocusNode myFocusNode;
 
   @override
@@ -56,7 +59,7 @@ class _addEventState extends State<addEvent> {
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Berhasil menambahkan Event !'),
+          title: Text('Berhasil menambahkan Laba-laba !'),
           content: SingleChildScrollView(
             child: Column(
               children: <Widget>[],
@@ -106,8 +109,8 @@ class _addEventState extends State<addEvent> {
       });
     });
     Future.delayed(Duration(seconds: 3)).then((value) {
-      Koneksi.koneksi.AddEvent(judul_event.text, deskripsi_event.text,
-          waktu_laksana.text, _uploadedFileURL, date_now);
+      Koneksi.koneksi.AddTanaman(nama_labalaba.text, famili.text, spesies.text,
+          deskripsi_labalaba.text, ordo.text, _uploadedFileURL, date_now);
       pr.hide().whenComplete(() {
         Notif();
 //        Navigator.pop(context);
@@ -147,7 +150,6 @@ class _addEventState extends State<addEvent> {
   Widget build(BuildContext context) {
     pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -158,7 +160,7 @@ class _addEventState extends State<addEvent> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "ADD EVENT",
+                    "Add Laba-laba",
                     style: TextStyle(
                         fontSize: 26,
                         fontFamily: "Trueno",
@@ -168,39 +170,112 @@ class _addEventState extends State<addEvent> {
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.fromLTRB(10, 50, 10, 20),
                     child: TextField(
-                      controller: judul_event,
+                      controller: nama_labalaba,
                       style: TextStyle(
                           fontFamily: "Trueno", fontWeight: FontWeight.w200),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Masukkan Nama Event',
+                          labelText: 'Masukkan Nama laba-laba',
                           labelStyle: TextStyle(
                               fontFamily: "Trueno",
                               fontWeight: FontWeight.w200),
                           prefixIcon: Icon(Icons.new_releases)),
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 60,
-                    child: RaisedButton(
-                      onPressed: () {
-                        myFocusNode.requestFocus();
-                        getImageFromGallery();
-                      },
-                      child: Text("ADD GAMBAR"),
+                  Container(
+                    child: new Container(
+                      height: 100,
+//                width:250,
+                      decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 2.0,
+                            spreadRadius: 0.0,
+                            offset: Offset(
+                              1.0, // Move to right 10  horizontally
+                              1.0, // Move to bottom 10 Vertically
+                            ),
+                          )
+                        ],
+                      ),
+                      child: FlatButton(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(6.0)),
+                        onPressed: () {
+                          myFocusNode.requestFocus();
+                          getImageFromGallery();
+                        },
+                        child: new Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          color: Colors.blue,
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(16.0),
+                                          child: Icon(
+                                            Icons.image,
+                                            color: Colors.white,
+                                            size: 20.0,
+                                          ),
+                                        ),
+                                      ),
+                                      Center(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 8, 0, 4),
+                                          child: Text(
+                                            'GAMBAR',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.0,
+//                                                  fontFamily: 'Roboto-Bold',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  showImage(),
+                  SizedBox(
+                    height: 20,
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextField(
-                      controller: deskripsi_event,
                       focusNode: myFocusNode,
+                      controller: deskripsi_labalaba,
                       style: TextStyle(
                           fontFamily: "Trueno", fontWeight: FontWeight.w200),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Masukkan Deskripsi Event',
+                          labelText: 'Masukkan Deskripsi laba-laba',
                           labelStyle: TextStyle(
                               fontFamily: "Trueno",
                               fontWeight: FontWeight.w200)),
@@ -211,17 +286,48 @@ class _addEventState extends State<addEvent> {
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextField(
-                      controller: waktu_laksana,
+                      controller: famili,
                       style: TextStyle(
                           fontFamily: "Trueno", fontWeight: FontWeight.w200),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText:
-                              'Masukkan Tempat & Waktu Pelaksanaan Event',
+                          labelText: 'Masukkan famili',
                           labelStyle: TextStyle(
                               fontFamily: "Trueno",
                               fontWeight: FontWeight.w200)),
-                      maxLines: 5,
+                      maxLines: 15,
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    child: TextField(
+                      controller: spesies,
+                      style: TextStyle(
+                          fontFamily: "Trueno", fontWeight: FontWeight.w200),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Masukkan spesies',
+                          labelStyle: TextStyle(
+                              fontFamily: "Trueno",
+                              fontWeight: FontWeight.w200)),
+                      maxLines: 15,
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    child: TextField(
+                      controller: ordo,
+                      style: TextStyle(
+                          fontFamily: "Trueno", fontWeight: FontWeight.w200),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Masukkan ordo',
+                          labelStyle: TextStyle(
+                              fontFamily: "Trueno",
+                              fontWeight: FontWeight.w200)),
+                      maxLines: 15,
                     ),
                   ),
                   SizedBox(
@@ -229,9 +335,10 @@ class _addEventState extends State<addEvent> {
                     child: RaisedButton(
                       onPressed: () {
                         uploadFile();
+//                    print(DateTime.now().millisecondsSinceEpoch);
                       },
                       child: Text(
-                        "TAMBAHKAN EVENT",
+                        "Tambahkan laba-laba",
                         style: TextStyle(
                             color: Colors.white,
                             fontFamily: "Trueno",

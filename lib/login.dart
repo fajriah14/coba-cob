@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nandur/home.dart';
+import 'package:SpidyLib/home.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,9 +104,7 @@ class _loginState extends State<login> {
           Stack(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("images/bg.jpg"), fit: BoxFit.fill)),
+                decoration: BoxDecoration(),
                 child: Column(
                   children: <Widget>[
                     SizedBox(
@@ -131,7 +129,7 @@ class _loginState extends State<login> {
                           TextFormField(
                             controller: username,
                             decoration: InputDecoration(
-                                labelText: "USERNAME",
+                                labelText: "Username",
                                 labelStyle: TextStyle(
                                     fontFamily: "Trueno",
                                     fontWeight: FontWeight.w200,
@@ -141,7 +139,7 @@ class _loginState extends State<login> {
                             controller: password,
                             obscureText: true,
                             decoration: InputDecoration(
-                                labelText: "PASSWORD",
+                                labelText: "Password",
                                 labelStyle: TextStyle(
                                     fontFamily: "Trueno",
                                     fontWeight: FontWeight.w200,
@@ -155,16 +153,16 @@ class _loginState extends State<login> {
                               LoginNow();
                             },
                             child: Container(
-                              padding: EdgeInsets.all(5),
+                              padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Colors.black,
+                                color: Colors.blue[400],
                               ),
                               child: Text(
                                 "LOGIN",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                     fontFamily: "Trueno"),
                               ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:nandur/login.dart';
-import 'package:nandur/home.dart';
+import 'package:SpidyLib/login.dart';
+import 'package:SpidyLib/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Nandur',
+      title: 'SpidyLib',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -36,9 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg1.png"), fit: BoxFit.fill)),
+        decoration: BoxDecoration(),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,21 +51,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.black,
+                  color: Colors.grey[350],
                 ),
                 child: Container(
                   width: MediaQuery.of(context).size.width - 180,
                   child: Text(
-                      "Nandur merupakan aplikasi pertanian yang berisi informasi cara penanaman, perawatan serta hasil olahannya. Aplikasi ini juga terdapat rangkaian event-event pertanian yang akan diadakan",
+                      "SpidyLib adalah aplikasi untuk membantu pengamat laba-laba dalam mengumpulkan, menyimpan, dan mengelola data lapangan.",
                       style:
-                          TextStyle(color: Colors.white, fontFamily: "Trueno"),
+                          TextStyle(color: Colors.black, fontFamily: "Trueno"),
                       textAlign: TextAlign.justify),
                 ),
               ),
               SizedBox(
                 width: 200,
                 child: RaisedButton(
-                  color: Colors.green[400],
+                  color: Colors.blue[400],
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => home()));
@@ -84,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 width: 200,
                 child: RaisedButton(
-                  color: Colors.green[400],
+                  color: Colors.blue[400],
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => login()));

@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:nandur/main.dart';
+import 'package:SpidyLib/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -27,14 +27,4 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
-  // ignore: unused_label
-  // ignore: unnecessary_statements
-  builder:
-  (BuildContext context, Widget widget) {
-    Widget error = Text('...rendering error...');
-    if (widget is Scaffold || widget is Navigator)
-      error = Scaffold(body: Center(child: error));
-    ErrorWidget.builder = (FlutterErrorDetails errorDetails) => error;
-    return widget;
-  };
 }

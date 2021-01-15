@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nandur/editEvent.dart';
+import 'package:SpidyLib/editEvent.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:nandur/koneksi.dart';
+import 'package:SpidyLib/koneksi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class detailEvent extends StatefulWidget {
-
   final VoidCallback reloadData;
   final String idDocument;
   final String judul_event;
@@ -16,7 +15,15 @@ class detailEvent extends StatefulWidget {
   final String created;
   final String users;
 
-  detailEvent({this.reloadData,this.idDocument,this.judul_event,this.deskripsi_event,this.waktu_laksana,this.gambar,this.created,this.users});
+  detailEvent(
+      {this.reloadData,
+      this.idDocument,
+      this.judul_event,
+      this.deskripsi_event,
+      this.waktu_laksana,
+      this.gambar,
+      this.created,
+      this.users});
 
   @override
   _detailEventState createState() => _detailEventState();
@@ -27,13 +34,12 @@ class _detailEventState extends State<detailEvent> {
 
   String judul_event;
   String deskripsi_event;
-  String waktu_laksana;
+  String waktu_pelaksanaan;
   String gambar;
   String created;
 
-
   String user;
-  Future cekoke() async{
+  Future cekoke() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     user = prefs.getString('user');
   }
@@ -44,13 +50,13 @@ class _detailEventState extends State<detailEvent> {
     cekoke();
     judul_event = widget.judul_event;
     deskripsi_event = widget.deskripsi_event;
-    waktu_laksana = widget.waktu_laksana;
+    waktu_pelaksanaan = widget.waktu_laksana;
     gambar = widget.gambar;
     created = widget.created;
   }
 
-  Widget ButtonAddx(){
-    if(widget.users != null){
+  Widget ButtonAddx() {
+    if (widget.users != null) {
       return Padding(
         padding: EdgeInsets.only(left: 31),
         child: Align(
@@ -61,27 +67,31 @@ class _detailEventState extends State<detailEvent> {
             icon: Icon(Icons.edit),
             backgroundColor: Colors.orange,
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => editEvent(
-                    reloadData: widget.reloadData,
-                    idDocument: widget.idDocument,
-                    judul_event: widget.judul_event,
-                    deskripsi_event: widget.deskripsi_event,
-                    waktu_laksana: widget.waktu_laksana,
-                    gambar: widget.gambar,
-                    created: widget.created,
-                  )));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => editEvent(
+                            reloadData: widget.reloadData,
+                            idDocument: widget.idDocument,
+                            judul_event: widget.judul_event,
+                            deskripsi_event: widget.deskripsi_event,
+                            waktu_pelaksanaan: widget.waktu_laksana,
+                            gambar: widget.gambar,
+                            created: widget.created,
+                          )));
             },
           ),
         ),
       );
-    }else{
-      return Padding(padding: EdgeInsets.all(0),);
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(0),
+      );
     }
   }
 
-  Widget ButtonAddxx(){
-    if(widget.users != null){
+  Widget ButtonAddxx() {
+    if (widget.users != null) {
       return Align(
         alignment: Alignment.bottomRight,
         child: FloatingActionButton.extended(
@@ -94,12 +104,12 @@ class _detailEventState extends State<detailEvent> {
           },
         ),
       );
-    }else{
+    } else {
       return Align();
     }
   }
 
-  HapusData(String id_document){
+  HapusData(String id_document) {
     pr.show();
     Future.delayed(Duration(seconds: 3)).then((value) {
       Koneksi.koneksi.HapusEvent(widget.idDocument);
@@ -110,18 +120,16 @@ class _detailEventState extends State<detailEvent> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
-    pr = new ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: new IconThemeData(color: Colors.black),
-        title: Padding(
-          padding: EdgeInsets.only(left: 10),
+        appBar: AppBar(
+          iconTheme: new IconThemeData(color: Colors.black),
+          title: Padding(
+            padding: EdgeInsets.only(left: 10),
 //          child: Row(
 //            children: <Widget>[
 //              Text("Stikes",
@@ -149,10 +157,10 @@ class _detailEventState extends State<detailEvent> {
 //              ),
 //            ],
 //          ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
         body: ListView(
           children: <Widget>[
             Column(
@@ -217,7 +225,7 @@ class _detailEventState extends State<detailEvent> {
                           margin: EdgeInsets.fromLTRB(20, 5, 20, 20),
                           width: MediaQuery.of(context).size.width,
                           child: Text(
-                            waktu_laksana,
+                            waktu_pelaksanaan,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontFamily: "Trueno",

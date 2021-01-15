@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nandur/addTanaman.dart';
-import 'package:nandur/detailTanaman.dart';
-import 'package:nandur/event.dart';
+import 'package:SpidyLib/addLabalaba.dart';
+// ignore: unused_import
+import 'package:SpidyLib/detailLabalaba.dart';
+import 'package:SpidyLib/event.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nandur/koneksi.dart';
-import 'package:nandur/main.dart';
+import 'package:SpidyLib/koneksi.dart';
+import 'package:SpidyLib/main.dart';
 
 class home extends StatefulWidget {
   final String userz;
@@ -48,13 +49,13 @@ class _homeState extends State<home> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => addTanaman(
+                  builder: (context) => addLabalaba(
                         reloadData: AmbilData,
                       )));
         },
-        label: Text('ADD TANAMAN'),
+        label: Text('Add Laba-laba'),
         icon: Icon(Icons.note_add),
-        backgroundColor: Colors.green[400],
+        backgroundColor: Colors.blue[400],
       );
     } else {
       return Container();
@@ -108,38 +109,34 @@ class _homeState extends State<home> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.fromLTRB(20, 80, 20, 20),
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: Colors.black, borderRadius: BorderRadius.circular(20)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Image.asset(
-                  "images/logo.png",
-                  height: 100,
-                ),
-                Text(
-                  "nandur.",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Trueno",
-                      fontWeight: FontWeight.w700,
-                      fontSize: 36),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 340,
-                ),
-                Image.asset(
-                  "images/kaktus.png",
-                  height: 100,
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   margin: EdgeInsets.fromLTRB(20, 80, 20, 20),
+          //   padding: EdgeInsets.all(5),
+          //   decoration: BoxDecoration(
+          //       color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          //   child: Row(
+          //     crossAxisAlignment: CrossAxisAlignment.end,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: <Widget>[
+          //       Image.asset(
+          //         "images/logo.png",
+          //         height: 100,
+          //       ),
+          //       Text(
+          //         "SpidyLib.",
+          //         style: TextStyle(
+          //             color: Colors.white,
+          //             fontFamily: "Trueno",
+          //             fontWeight: FontWeight.w700,
+          //             fontSize: 36),
+          //       ),
+          //       SizedBox(
+          //         width: MediaQuery.of(context).size.width - 340,
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Container(
             margin: EdgeInsets.only(top: 200),
             height: 700,
@@ -159,7 +156,7 @@ class _homeState extends State<home> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => detailTanaman(
+                                  builder: (context) => detailLabalaba(
                                         reloadData: AmbilData,
                                         idDocument: item.documentID,
                                         nama_tanaman: item.data['nama_tanaman'],
@@ -226,7 +223,7 @@ class _homeState extends State<home> {
                   ),
           ),
           Positioned(
-//            top: 100.0,
+            //            top: 100.0,
             left: 0.1,
             right: 0.1,
             child: Container(
@@ -278,3 +275,15 @@ class _homeState extends State<home> {
     );
   }
 }
+
+detailLabalaba(
+    {Function() reloadData,
+    String idDocument,
+    nama_tanaman,
+    cara_menanam,
+    cara_merawat,
+    hasil_tanaman,
+    deskripsi_tanaman,
+    gambar,
+    created,
+    String users}) {}
